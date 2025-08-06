@@ -1,0 +1,174 @@
+[{
+    title : '@@SlackNotification.config@@',
+    properties : [
+    {
+        name : 'apiurl',
+        label : '@@SlackNotification.url@@',
+        type : 'textfield',
+        required : 'true'
+    },
+    {
+        label : '@@SlackNotification.from@@',
+        type : 'header'
+    },
+    {
+        name : 'username',
+        label : '@@SlackNotification.fromUsername@@',
+        type : 'textfield',
+        value : '@@SlackNotification.fromUsername.value@@'
+    },
+    {
+        name : 'customIcon',
+        label : '@@SlackNotification.customIcon@@',
+        type : 'selectbox',
+        value : 'joget',
+        options : [{
+            value : '',
+            label : '@@SlackNotification.customIcon.none@@'
+        },
+        {
+            value : 'joget',
+            label : '@@SlackNotification.customIcon.joget@@'
+        },
+        {
+            value : 'url',
+            label : '@@SlackNotification.customIcon.url@@'
+        },
+        {
+            value : 'emoji',
+            label : '@@SlackNotification.customIcon.emoji@@'
+        }]
+    },
+    {
+        name : 'iconUrl',
+        label : '@@SlackNotification.customIcon.url@@',
+        type : 'textfield',
+        required : 'true',
+        control_field: 'customIcon',
+        control_value: 'url',
+        control_use_regex: 'false'
+    },
+    {
+        name : 'iconEmoji',
+        label : '@@SlackNotification.customIcon.emoji@@',
+        type : 'textfield',
+        required : 'true',
+        control_field: 'customIcon',
+        control_value: 'emoji',
+        control_use_regex: 'false'
+    },
+    {
+        label : '@@SlackNotification.to@@',
+        type : 'header'
+    },
+    {
+        name : 'usernameTransform',
+        label : '@@SlackNotification.usernameTransform@@',
+        description : '@@SlackNotification.usernameTransform.desc@@',
+        type : 'textfield',
+        value : '@@SlackNotification.usernameTransform.value@@',
+        required : 'True'
+    },
+    {
+        label : '@@SlackNotification.message@@',
+        type : 'header'
+    },
+    {
+        name : 'text',
+        label : '@@SlackNotification.text@@',
+        description : '@@SlackNotification.text.desc@@',
+        type : 'codeeditor',
+        required : 'True'
+    },
+    {
+        name : 'unfurl_links',
+        label : '@@SlackNotification.unfurl_links@@',
+        description : '@@SlackNotification.unfurl_links.desc@@',
+        type : 'checkbox',
+        value : 'true',
+        options : [{
+            value : 'true',
+            label : ''
+        }]
+    },
+    {
+        name : 'unfurl_media',
+        label : '@@SlackNotification.unfurl_media@@',
+        description : '@@SlackNotification.unfurl_media.desc@@',
+        type : 'checkbox',
+        value : 'true',
+        options : [{
+            value : 'true',
+            label : ''
+        }]
+    }],
+    buttons : [{
+        name : 'sendTestMessage',    
+        label : '@@SlackNotification.sendTestMessage@@',
+        ajax_url : '[CONTEXT_PATH]/web/json/app[APP_PATH]/plugin/org.joget.SlackNotification/service?action=sendTestMessage',
+        fields : ['url'],
+        addition_fields : [
+            {
+                name : 'testChannel',
+                label : '@@SlackNotification.sendTestMessage.testChannel@@',
+                type : 'textfield'
+            }
+        ]
+    }]
+},
+{
+    title : '@@app.usernotificationaudittrail.notificationLink@@',
+    properties : [
+    {
+        name : 'base',
+        label : '@@app.usernotificationaudittrail.baseUrl@@',
+        type : 'textfield',
+        description : '@@app.usernotificationaudittrail.baseUrl.desc@@',
+        required : 'True'
+    },
+    {
+        name : 'url',
+        label : '@@app.usernotificationaudittrail.url@@',
+        type : 'textfield'
+    },
+    {
+        name : 'urlName',
+        label : '@@app.usernotificationaudittrail.urlName@@',
+        type : 'textfield'
+    },
+    {
+        name : 'parameterName',
+        label : '@@app.usernotificationaudittrail.parameterName@@',
+        description : '@@app.usernotificationaudittrail.parameterName.desc@@',
+        type : 'textfield',
+        value : 'activityId'
+    },
+    {
+        name : 'passoverMethod',
+        label : '@@app.usernotificationaudittrail.passoverMethod@@',
+        type : 'selectbox',
+        value : 'param',
+        options : [{
+            value : 'none',
+            label : '@@app.usernotificationaudittrail.passoverMethod.none@@'
+        },
+        {
+            value : 'append',
+            label : '@@app.usernotificationaudittrail.passoverMethod.append@@'
+        },
+        {
+            value : 'param',
+            label : '@@app.usernotificationaudittrail.passoverMethod.param@@'
+        }]
+    }]
+},
+{
+    title : '@@app.usernotificationaudittrail.advanced@@',
+    properties : [{
+        name : 'exclusion',
+        label : '@@app.usernotificationaudittrail.activityExclusion@@',
+        type : 'multiselect',
+        size : '10',
+        options_ajax : '[CONTEXT_PATH]/web/json/app[APP_PATH]/plugin/org.joget.apps.app.lib.UserNotificationAuditTrail/service?action=getActivities'
+    }]
+}]
