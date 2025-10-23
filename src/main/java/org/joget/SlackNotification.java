@@ -205,7 +205,7 @@ public class SlackNotification extends UserNotificationAuditTrail {
     }
     
     protected SlackMessage createMessage() {
-        SlackMessage message = new SlackMessage();
+        SlackMessage message = new SlackMessage(getPropertyString("text"));
         
         String username = getPropertyString("username");
         if (!username.isEmpty()) {
