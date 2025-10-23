@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.gpedro.integrations.slack.SlackApi;
 import net.gpedro.integrations.slack.SlackAttachment;
 import net.gpedro.integrations.slack.SlackMessage;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.joget.apps.app.lib.UserNotificationAuditTrail;
 import org.joget.apps.app.model.AppDefinition;
 import org.joget.apps.app.model.AuditTrail;
@@ -38,7 +37,7 @@ public class SlackNotification extends UserNotificationAuditTrail {
 
     @Override
     public String getVersion() {
-        return "5.0.0";
+        return "8.0.1";
     }
     
     @Override
@@ -79,8 +78,8 @@ public class SlackNotification extends UserNotificationAuditTrail {
                 String url = AppUtil.processHashVariable(request.getParameter("url"), null, null, null, appDef);
                 String testChannel = AppUtil.processHashVariable(request.getParameter("testChannel"), null, null, null, appDef);
                 
-                setProperty("apiurl", url);
-                setProperty("text", AppPluginUtil.getMessage("SlackWebhookTool.testMessage", getClassName(), MESSAGE_PATH));
+                setProperty("url", url);
+                setProperty("text", AppPluginUtil.getMessage("SlackNotification.testMessage", getClassName(), MESSAGE_PATH));
                 
                 if (testChannel != null && !testChannel.isEmpty()) {
                     sendMessage(testChannel, null);
@@ -88,10 +87,10 @@ public class SlackNotification extends UserNotificationAuditTrail {
                     sendMessage(null, null);
                 }
                 
-                message = AppPluginUtil.getMessage("SlackWebhookTool.sendTestMessage.success", getClassName(), MESSAGE_PATH);
+                message = AppPluginUtil.getMessage("SlackNotification.sendTestMessage.success", getClassName(), MESSAGE_PATH);
             } catch (Exception e) {
                 LogUtil.error(this.getClassName(), e, "Fail to send Test Message to Slack");
-                message = AppPluginUtil.getMessage("SlackWebhookTool.sendTestMessage.fail", getClassName(), MESSAGE_PATH) + "\n" + StringEscapeUtils.escapeJavaScript(e.getMessage());
+                message = AppPluginUtil.getMessage("SlackNotification.sendTestMessage.fail", getClassName(), MESSAGE_PATH) + "\n" +  StringUtil.escapeString(e.getMessage(), StringUtil.TYPE_HTML);
             }
             try {
                 JSONObject jsonObject = new JSONObject();
@@ -183,7 +182,7 @@ public class SlackNotification extends UserNotificationAuditTrail {
     
     protected SlackApi getApi() {
         if (api == null) {
-            api = new SlackApi(getPropertyString("apiurl"));
+            api = new SlackApi(getPropertyString("url"));
         }
         return api;
     }

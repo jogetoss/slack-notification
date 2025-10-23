@@ -2,7 +2,7 @@
     title : '@@SlackNotification.config@@',
     properties : [
     {
-        name : 'apiurl',
+        name : 'url',
         label : '@@SlackNotification.url@@',
         type : 'textfield',
         required : 'true'
