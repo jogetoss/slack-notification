@@ -78,7 +78,10 @@ public class SlackNotification extends UserNotificationAuditTrail {
                 String apiurl = AppUtil.processHashVariable(request.getParameter("apiurl"), null, null, null, appDef);
                 String url = AppUtil.processHashVariable(request.getParameter("url"), null, null, null, appDef);
                 String testChannel = AppUtil.processHashVariable(request.getParameter("testChannel"), null, null, null, appDef);
-                
+                if(testChannel.equals("")){
+                    testChannel = AppPluginUtil.getMessage("SlackNotification.testMessage", getClassName(), MESSAGE_PATH);
+                }
+
                 setProperty("apiurl", apiurl);
                 setProperty("url", url);
                 setProperty("text", testChannel);
