@@ -106,7 +106,7 @@
         name : 'sendTestMessage',    
         label : '@@SlackNotification.sendTestMessage@@',
         ajax_url : '[CONTEXT_PATH]/web/json/app[APP_PATH]/plugin/org.joget.SlackNotification/service?action=sendTestMessage',
-        fields : ['url'],
+        fields : ['apiurl', 'url', 'testChannel'],
         addition_fields : [
             {
                 name : 'testChannel',
